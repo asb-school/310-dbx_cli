@@ -257,6 +257,7 @@ public class CommandParser
                 t.db_delete(); // Perform the database deletion operation.
                 ps.println("OUTPUT DELETE npc " + t.getId());
             }
+
             else if(subCmd.equals("player"))
             {
                 // Delete a test entity
@@ -302,6 +303,28 @@ public class CommandParser
                 for(NPC t: tc)
                 {
                     ps.println("OUTPUT READ ALL npcs " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+                }
+            }
+            else if(subCmd.equals("players"))
+            {
+                // Read all test entities
+                Collection<Player> tc = new LinkedList<Player>();
+                
+                // Populate the vector using the database object iterator.
+                {
+                    Player t = new Player(dbx);
+
+                    t.db_iter_begin();
+                    while(t.db_iter_next())
+                    {
+                        tc.add(new Player(t));
+                    }
+                    t.db_iter_end();
+                }
+                
+                for(Player t: tc)
+                {
+                    ps.println("OUTPUT READ ALL player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
                 }
             }
         }
