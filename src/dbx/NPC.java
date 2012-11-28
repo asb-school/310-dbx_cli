@@ -199,6 +199,12 @@ public class NPC implements DBObj
         {
             throw new Exception("ERROR: DBX.testCreate: statement execution failed");
         }
+        
+        // Get the key value of the new generated entity
+        rs = pstmt.getGeneratedKeys();
+        rs.next();
+        newId = rs.getLong(1);
+        this.setId(newId);
 
         rs.close();
         pstmt.close();
@@ -282,7 +288,7 @@ public class NPC implements DBObj
 
         // Execute the query
         rowCount = pstmt.executeUpdate();
-        if(rowCount <= 1)
+        if(rowCount < 1)
         {
             throw new Exception("ERROR: DBX.testUpdate: statement execution failed");
         }
@@ -303,18 +309,18 @@ public class NPC implements DBObj
         int rowCount; // Rows affected by statement execution
 
         // SQL query
-        sqlStr = "DELETE FROM test WHERE id = ?";
+        sqlStr = "DELETE npc, npc_type FROM npc, npc_type WHERE npc.npc_type_id = npc_type.id AND npc.id = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr);
 
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
-        pstmt.setLong(1, this.id);
+        pstmt.setLong(1, this.getId());
 
         // Execute the query
         rowCount = pstmt.executeUpdate();
-        if(rowCount != 1)
+        if(rowCount < 1)
         {
             throw new Exception("ERROR: DBX.testDelete: statement execution failed");
         }
