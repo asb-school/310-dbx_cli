@@ -48,7 +48,7 @@ public class Player implements DBObj
         this.name = name;
     }
 
-    public double getHealth()
+    public int getHealth()
     {
         return health;
     }
@@ -58,7 +58,7 @@ public class Player implements DBObj
         this.health = health;
     }
     
-    public double getSkillLevel()
+    public int getSkillLevel()
     {
         return skill_level;
     }
@@ -68,7 +68,7 @@ public class Player implements DBObj
         this.skill_level = skill_level;
     }
 
-    public double getBirthDate()
+    public int getBirthDate()
     {
         return birth_date;
     }
@@ -128,12 +128,12 @@ public class Player implements DBObj
         return dbx;
     }
 
-    public NPC(DBX dbx_p)
+    public Player(DBX dbx_p)
     {
         dbx = dbx_p;
     }
     
-    public NPC(NPC t)
+    public Player(Player t)
     {
         this.id = t.id;
         this.name = t.name;
