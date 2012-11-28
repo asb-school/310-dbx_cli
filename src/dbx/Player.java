@@ -153,7 +153,7 @@ public class Player implements DBObj
         String keyColumns[] = {"id"}; // Key attribute
 
         // SQL query
-        sqlStr = "INSERT INTO npc_type (name, aggressiveness, benevolence) VALUES (?, ?, ?)";
+        sqlStr = "INSERT INTO player (name, health, skill_level, pos_x, pos_y, region_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr, keyColumns);
@@ -161,8 +161,11 @@ public class Player implements DBObj
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
         pstmt.setString(1, this.getName());
-        pstmt.setDouble(2, this.getHealth());
-        pstmt.setDouble(3, this.getSkillLevel());
+        pstmt.setInt(2, this.getHealth());
+        pstmt.setInt(3, this.getSkillLevel());
+        pstmt.setInt(4, this.getPosX());
+        pstmt.setInt(5, this.getPosY());
+        pstmt.setInt(6, this.getRegionID());
     
         // Execute the query
         rowCount = pstmt.executeUpdate();
@@ -171,35 +174,6 @@ public class Player implements DBObj
             throw new Exception("ERROR: DBX.testCreate: statement execution failed");
         }
 
-        // Get the key value of the new generated entity
-        rs = pstmt.getGeneratedKeys();
-        rs.next();
-        newId = rs.getLong(1);
-        this.setId(newId);
-
-        rs.close();
-        pstmt.close();
-
-         // SQL query
-        sqlStr = "INSERT INTO npc (pos_x, pos_y, region_id, npc_type_id) VALUES (?, ?, ?, ?)";
-
-        // Create the SQL statement object and prepare the statement
-        pstmt = dbx.getConnection().prepareStatement(sqlStr, keyColumns);
-
-        // Set the parameter values, with the index corresponding to
-        // the appropriate question mark sequence in the query string.
-        pstmt.setInt(1, this.getPosX());
-        pstmt.setInt(2, this.getPosY());
-        pstmt.setInt(3, this.getRegionID());
-        pstmt.setLong(4, this.getId());
-
-         // Execute the query
-        rowCount = pstmt.executeUpdate();
-        if(rowCount != 1)
-        {
-            throw new Exception("ERROR: DBX.testCreate: statement execution failed");
-        }
-        
         // Get the key value of the new generated entity
         rs = pstmt.getGeneratedKeys();
         rs.next();
