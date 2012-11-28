@@ -258,7 +258,7 @@ public class Player implements DBObj
         int rowCount; // Rows affected by statement execution
 
         // SQL query
-        sqlStr = "UPDATE npc_type,npc SET npc_type.name = ?, npc_type.aggressiveness = ?, npc_type.benevolence = ?, npc.pos_x = ?, npc.pos_y = ?, npc.region_id = ? WHERE npc_type.id = npc.npc_type_id AND npc.id = ?";
+        sqlStr = "UPDATE player SET name = ?, health = ?, skill_level = ?, birth_date = ?, pos_x = ?, pos_y = ?, region_id = ? WHERE id = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr);
@@ -266,12 +266,13 @@ public class Player implements DBObj
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
         pstmt.setString(1, this.getName());
-        pstmt.setDouble(2, this.getHealth());
-        pstmt.setDouble(3, this.getSkillLevel());
-        pstmt.setInt(4, this.getPosX());
-        pstmt.setInt(5, this.getPosY());
-        pstmt.setInt(6, this.getRegionID());
-        pstmt.setLong(7, this.getId());
+        pstmt.setInt(2, this.getHealth());
+        pstmt.setInt(3, this.getSkillLevel());
+        pstmt.setInt(4, this.getBirthDate());
+        pstmt.setInt(5, this.getPosX());
+        pstmt.setInt(6, this.getPosY());
+        pstmt.setInt(7, this.getRegionID());
+        pstmt.setLong(8, this.getId());
 
         // Execute the query
         rowCount = pstmt.executeUpdate();
@@ -296,7 +297,7 @@ public class Player implements DBObj
         int rowCount; // Rows affected by statement execution
 
         // SQL query
-        sqlStr = "DELETE npc, npc_type FROM npc, npc_type WHERE npc.npc_type_id = npc_type.id AND npc.id = ?";
+        sqlStr = "DELETE player FROM player WHERE id = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr);
@@ -337,7 +338,7 @@ public class Player implements DBObj
         dbxIter = new DBXIter();
 
         // SQL query
-        dbxIter.sqlStr = "SELECT npc.id as id, npc_type.name as name, npc_type.aggressiveness as aggressiveness, npc_type.benevolence as benevolence, npc.pos_x as pos_x, npc.pos_y as pos_y, npc.region_id as region_id FROM npc, npc_type WHERE npc_type.id = npc.npc_type_id";
+        dbxIter.sqlStr = "SELECT name, health, skill_level, birth_date, pos_x, pos_y, region_id FROM player WHERE id = ?";
 
         // Create the SQL statement object and prepare the statement
         dbxIter.pstmt = dbx.getConnection().prepareStatement(dbxIter.sqlStr);
@@ -374,11 +375,12 @@ public class Player implements DBObj
         {
             this.setId(dbxIter.rs.getLong(1));
             this.setName(dbxIter.rs.getString(2));
-            this.setHealth(dbxIter.rs.getDouble(3));
-            this.setSkillLevel(dbxIter.rs.getDouble(4));
-            this.setPosX(dbxIter.rs.getInt(5));
-            this.setPosY(dbxIter.rs.getInt(6));
-            this.setRegionID(dbxIter.rs.getInt(7));
+            this.setHealth(dbxIter.rs.getInt(3));
+            this.setSkillLevel(dbxIter.rs.getInt(4));
+            this.setBirthDate(dbxIter.rs.getInt(5));
+            this.setPosX(dbxIter.rs.getInt(6));
+            this.setPosY(dbxIter.rs.getInt(7));
+            this.setRegionID(dbxIter.rs.getInt(8));
         }
         
         return haveMore;
