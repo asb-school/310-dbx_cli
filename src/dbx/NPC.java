@@ -161,13 +161,9 @@ public class NPC implements DBObj
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
         pstmt.setString(1, this.getName());
-        pstmt.setString(2, this.getAggressiveness());
-        pstmt.setString(3, this.getBenevolence());
-        
-        pstmt.setString(4, this.getPosX());
-        pstmt.setString(5, this.getPosY());
-        pstmt.setString(6, this.getRegionID());
-
+        pstmt.setDouble(2, this.getAggressiveness());
+        pstmt.setDouble(3, this.getBenevolence());
+    
         // Execute the query
         rowCount = pstmt.executeUpdate();
         if(rowCount != 1)
@@ -185,17 +181,17 @@ public class NPC implements DBObj
         pstmt.close();
 
          // SQL query
-        sqlStr = "INSERT INTO npc (id, pos_x, pos_y, region_id, npc_type_id) VALUES (?, ?, ?, ?)";
+        sqlStr = "INSERT INTO npc (pos_x, pos_y, region_id, npc_type_id) VALUES (?, ?, ?, ?)";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr, keyColumns);
 
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
-        pstmt.setString(1, this.getPosX());
-        pstmt.setString(2, this.getPosY());
-        pstmt.setString(3, this.getRegionID());
-        pstmt.setString(4, this.getId());
+        pstmt.setInt(1, this.getPosX());
+        pstmt.setInt(2, this.getPosY());
+        pstmt.setInt(3, this.getRegionID());
+        pstmt.setLong(4, this.getId());
 
          // Execute the query
         rowCount = pstmt.executeUpdate();
