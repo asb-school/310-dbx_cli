@@ -265,7 +265,7 @@ public class NPC implements DBObj
         int rowCount; // Rows affected by statement execution
 
         // SQL query
-        sqlStr = "UPDATE test SET name = ?, val = ? WHERE id = ?";
+        sqlStr = "UPDATE npc_type,npc SET npc_type.name = ?, npc_type.aggressiveness = ?, npc_type.benevolence = ?, npc.pos_x = ?, npc.pos_y = ?, npc.region_id = ? WHERE npc_type.id = npc.npc_type_id AND npc.id = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr);
@@ -273,12 +273,16 @@ public class NPC implements DBObj
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
         pstmt.setString(1, this.getName());
-        //pstmt.setLong(2, this.getVal());
-        pstmt.setLong(3, this.getId());
+        pstmt.setDouble(2, this.getAggressiveness());
+        pstmt.setDouble(3, this.getBenevolence());
+        pstmt.setInt(4, this.getPosX());
+        pstmt.setInt(5, this.getPosY());
+        pstmt.setInt(6, this.getRegionID());
+        pstmt.setLong(7, this.getId());
 
         // Execute the query
         rowCount = pstmt.executeUpdate();
-        if(rowCount != 1)
+        if(rowCount <= 1)
         {
             throw new Exception("ERROR: DBX.testUpdate: statement execution failed");
         }
