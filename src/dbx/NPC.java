@@ -153,7 +153,7 @@ public class NPC implements DBObj
         String keyColumns[] = {"id"}; // Key attribute
 
         // SQL query
-        sqlStr = "INSERT INTO test (name, val) VALUES (?, ?)";
+        sqlStr = "INSERT INTO npc_type (name, aggressiveness, benevolence) VALUES (?, ?, ?)";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr, keyColumns);
@@ -161,7 +161,12 @@ public class NPC implements DBObj
         // Set the parameter values, with the index corresponding to
         // the appropriate question mark sequence in the query string.
         pstmt.setString(1, this.getName());
-        //pstmt.setLong(2, this.getVal());
+        pstmt.setString(2, this.getAggressiveness());
+        pstmt.setString(3, this.getBenevolence());
+        
+        pstmt.setString(4, this.getPosX());
+        pstmt.setString(5, this.getPosY());
+        pstmt.setString(6, this.getRegionID());
 
         // Execute the query
         rowCount = pstmt.executeUpdate();
@@ -178,6 +183,30 @@ public class NPC implements DBObj
 
         rs.close();
         pstmt.close();
+
+         // SQL query
+        sqlStr = "INSERT INTO npc (id, pos_x, pos_y, region_id, npc_type_id) VALUES (?, ?, ?, ?)";
+
+        // Create the SQL statement object and prepare the statement
+        pstmt = dbx.getConnection().prepareStatement(sqlStr, keyColumns);
+
+        // Set the parameter values, with the index corresponding to
+        // the appropriate question mark sequence in the query string.
+        pstmt.setString(1, this.getPosX());
+        pstmt.setString(2, this.getPosY());
+        pstmt.setString(3, this.getRegionID());
+        pstmt.setString(4, this.getId());
+
+         // Execute the query
+        rowCount = pstmt.executeUpdate();
+        if(rowCount != 1)
+        {
+            throw new Exception("ERROR: DBX.testCreate: statement execution failed");
+        }
+
+        rs.close();
+        pstmt.close();
+
         dbx.getConnection().commit();
     }
     
