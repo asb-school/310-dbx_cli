@@ -115,6 +115,35 @@ public class CommandParser
                 t.db_create(); // Create the object on the database.
                 ps.println("OUTPUT CREATE npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
+            else if(subCmd.equals("player"))
+            {
+                // Create a test entity.
+                Player t = new Player(dbx);
+                
+                ps.print("Name:" );
+                t.setName(sc.next());
+                
+                ps.print("Health: ");
+                t.setHealth(sc.nextInt());
+                
+                ps.print("Skill Level: ");
+                t.setSkillLevel(sc.nextInt());
+
+                ps.print("Birth Date");
+                t.setBirthDate(sc.nextInt());
+                
+                ps.print("Pos X: ");
+                t.setPosX(sc.nextInt());
+                
+                ps.print("Pos Y: ");
+                t.setPosY(sc.nextInt());
+                
+                ps.print("Region ID: ");
+                t.setRegionID(sc.nextInt());
+                
+                t.db_create(); // Create the object on the database.
+                ps.println("OUTPUT CREATE player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+            }
         }
         else if(cmd.equals("READ"))
         {
@@ -131,6 +160,17 @@ public class CommandParser
                
                 t.db_read(); // Read the object from the database.
                 ps.println("OUTPUT READ npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+            }
+            else if(subCmd.equals("player"))
+            {
+                // Read a test entity.
+                Player t = new Player(dbx);
+                
+                ps.print("ID: ");
+                t.setId(sc.nextLong());
+               
+                t.db_read(); // Read the object from the database.
+                ps.println("OUTPUT READ player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
         }
         else if(cmd.equals("UPDATE"))
@@ -167,6 +207,38 @@ public class CommandParser
                 
                 t.db_update(); // Update the object data on the database.
                 ps.println("OUTPUT UPDATE npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+            }
+            else if(subCmd.equals("player"))
+            {
+                // Update a test entity
+                Player t = new Player(dbx);
+                
+                ps.print("ID: ");
+                t.setId(sc.nextLong());
+                
+               ps.print("Name:" );
+                t.setName(sc.next());
+                
+                ps.print("Health: ");
+                t.setHealth(sc.nextInt());
+                
+                ps.print("Skill Level: ");
+                t.setSkillLevel(sc.nextInt());
+
+                ps.print("Birth Date");
+                t.setBirthDate(sc.nextInt());
+                
+                ps.print("Pos X: ");
+                t.setPosX(sc.nextInt());
+                
+                ps.print("Pos Y: ");
+                t.setPosY(sc.nextInt());
+                
+                ps.print("Region ID: ");
+                t.setRegionID(sc.nextInt());
+                
+                t.db_create(); // Create the object on the database.
+                ps.println("OUTPUT UPDATE player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
         }
         else if(cmd.equals("DELETE"))
