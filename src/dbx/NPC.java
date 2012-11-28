@@ -315,7 +315,7 @@ public class NPC implements DBObj
         dbxIter = new DBXIter();
 
         // SQL query
-        dbxIter.sqlStr = "SELECT id, name, val FROM test";
+        dbxIter.sqlStr = "SELECT npc.id as id, npc_type.name as name, npc_type.aggressiveness as aggressiveness, npc_type.benevolence as benevolence, npc.pos_x as pos_x, npc.pos_y as pos_y, npc.region_id as region_id FROM npc, npc_type WHERE npc_type.id = npc.npc_type_id";
 
         // Create the SQL statement object and prepare the statement
         dbxIter.pstmt = dbx.getConnection().prepareStatement(dbxIter.sqlStr);
@@ -352,7 +352,11 @@ public class NPC implements DBObj
         {
             this.setId(dbxIter.rs.getLong(1));
             this.setName(dbxIter.rs.getString(2));
-            //this.setVal(dbxIter.rs.getLong(3));
+            this.setAggressiveness(dbxIter.rs.getDouble(3));
+            this.setBenevolence(dbxIter.rs.getDouble(4));
+            this.setPosX(dbxIter.rs.getInt(5));
+            this.setPosY(dbxIter.rs.getInt(6));
+            this.setRegionID(dbxIter.rs.getInt(7));
         }
         
         return haveMore;

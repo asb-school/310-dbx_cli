@@ -6,7 +6,7 @@
  *
  * - Item: ?
  *
- * - Student: ?
+ * - Student: Andrew Breja
  *
  * - Description: >
  *     Command line CRUD database application using Java.

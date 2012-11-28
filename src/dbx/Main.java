@@ -6,7 +6,7 @@
  *
  * - Item: ?
  *
- * - Student: ?
+ * - Student: Andrew Breja
  *
  * - Description: >
  *     Command line CRUD database application using Java.
@@ -50,7 +50,7 @@ public class Main
             // Authenticate user
             dbx.authenticateUser(username, dbx.hashMD5(password));
             
-            // Result
+            // Who logged in?
             if(Global.is_player_authn)
             {
                 System.out.println("Player " + Global.authn_player_id + " is logged in");

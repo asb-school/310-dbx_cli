@@ -6,7 +6,7 @@
  *
  * - Item: ?
  *
- * - Student: ?
+ * - Student: Andrew Breja
  *
  * - Description: >
  *     Command line CRUD database application using Java.
@@ -89,14 +89,31 @@ public class CommandParser
             // Create an object and save it on the database.
             String subCmd;
             subCmd = sc.next();
-            if(subCmd.equals("test"))
+            if(subCmd.equals("npc"))
             {
                 // Create a test entity.
-                Test t = new Test(dbx);
+                NPC t = new NPC(dbx);
+                
+                ps.print("Name:" );
                 t.setName(sc.next());
-                t.setVal(sc.nextLong());
+                
+                ps.print("Aggressiveness: ");
+                t.setAggressiveness(sc.nextDouble());
+                
+                ps.print("Benevolence: ");
+                t.setBenevolence(sc.nextDouble());
+                
+                ps.print("Pos X: ");
+                t.setPosX(sc.nextInt());
+                
+                ps.print("Pos Y: ");
+                t.setPosY(sc.nextInt());
+                
+                ps.print("Region ID: ");
+                t.setRegionID(sc.nextInt());
+                
                 t.db_create(); // Create the object on the database.
-                ps.println("OUTPUT CREATE test " + t.getId() + " " + t.getName() + " " + t.getVal());
+                ps.println("OUTPUT CREATE npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
         }
         else if(cmd.equals("READ"))
@@ -104,15 +121,16 @@ public class CommandParser
             // Read an object from the database.
             String subCmd;
             subCmd = sc.next();
-            if(subCmd.equals("test"))
+            if(subCmd.equals("npc"))
             {
                 // Read a test entity.
-                long id;
-                Test t = new Test(dbx);
-                id = sc.nextLong();
-                t.setId(id);
+                NPC t = new NPC(dbx);
+                
+                ps.print("ID: ");
+                t.setId(sc.nextLong());
+               
                 t.db_read(); // Read the object from the database.
-                ps.println("OUTPUT READ test " + t.getId() + " " + t.getName() + " " + t.getVal());
+                ps.println("OUTPUT READ npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
         }
         else if(cmd.equals("UPDATE"))
@@ -120,15 +138,35 @@ public class CommandParser
             // Update an object's data on the database.
             String subCmd;
             subCmd = sc.next();
-            if(subCmd.equals("test"))
+            if(subCmd.equals("npc"))
             {
                 // Update a test entity
-                Test t = new Test(dbx);
+                NPC t = new NPC(dbx);
+                
+                ps.print("ID: ");
                 t.setId(sc.nextLong());
+                
+                ps.print("Name: ");
                 t.setName(sc.next());
-                t.setVal(sc.nextLong());
+                
+                ps.print("Aggressiveness: ");
+                t.setAggressiveness(sc.nextDouble());
+                
+                ps.print("Benevolence: ");
+                t.setBenevolence(sc.nextDouble());
+                
+                ps.print("Pos X: ");
+                t.setPosX(sc.nextInt());
+                
+                ps.print("Pos Y: ");
+                t.setPosY(sc.nextInt());
+                
+                ps.print("Region ID: ");
+                t.setRegionID(sc.nextInt());
+                
+                
                 t.db_update(); // Update the object data on the database.
-                ps.println("OUTPUT UPDATE test " + t.getId() + " " + t.getName() + " " + t.getVal());
+                ps.println("OUTPUT UPDATE npc " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
             }
         }
         else if(cmd.equals("DELETE"))
@@ -136,15 +174,16 @@ public class CommandParser
             // Delete an object from the database.
             String subCmd;
             subCmd = sc.next();
-            if(subCmd.equals("test"))
+            if(subCmd.equals("npc"))
             {
                 // Delete a test entity
-                Test t = new Test(dbx);
-                long id;
-                id = sc.nextLong();
-                t.setId(id);
+                NPC t = new NPC(dbx);
+                
+                ps.print("ID: ");
+                t.setId(sc.nextLong());
+                
                 t.db_delete(); // Perform the database deletion operation.
-                ps.println("OUTPUT DELETE test " + id);
+                ps.println("OUTPUT DELETE npc " + t.getId());
             }
             else if(subCmd.equals("player"))
             {
@@ -190,7 +229,7 @@ public class CommandParser
                 
                 for(NPC t: tc)
                 {
-                    ps.println("OUTPUT READ_ALL test " + t.getId() + " " + t.getName() + " " + t.getBenevolence());
+                    ps.println("OUTPUT READ ALL npcs " + t.getId() + " " + t.getName() + " " + t.getAggressiveness() + " " + t.getBenevolence() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
                 }
             }
         }

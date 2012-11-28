@@ -6,7 +6,7 @@
  *
  * - Item: ?
  *
- * - Student: ?
+ * - Student: Andrew Breja
  *
  * - Description: >
  *     Command line CRUD database application using Java.
@@ -328,7 +328,7 @@ public class DBX
             float aggressiveness = rs.getFloat("aggressiveness");
             int color = (int)((1.0-aggressiveness)*192.0);
             String svg_line;
-            svg_line = String.format("<circle cx=\"%d\" cy=\"%d\" r=\"30\" fill=\"rgb(%d,255,%d)\" stroke=\"#000000\" stroke-width=\"1\"/>",
+            svg_line = String.format("<circle cx=\"%d\" cy=\"%d\" r=\"30\" fill=\"rgb(255,%d,%d)\" stroke=\"#000000\" stroke-width=\"1\"/>",
                                    pos_x, pos_y, color, color);
             System.out.println(svg_line);
         }
