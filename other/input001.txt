@@ -1,0 +1,4 @@
+READ test 1
+READ test 5
+READ test 4
+EXIT

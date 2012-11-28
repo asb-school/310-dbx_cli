@@ -1,0 +1,4 @@
+OUTPUT READ test 2 Bob 35
+OUTPUT READ test 5 Lenny 28
+OUTPUT READ test 4 Roberto 88
+OUTPUT EXIT
