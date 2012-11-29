@@ -129,7 +129,7 @@ public class CommandParser
                 ps.print("Skill Level: ");
                 t.setSkillLevel(sc.nextInt());
 
-                ps.print("Birth Date");
+                ps.print("Birth Date: ");
                 t.setBirthDate(sc.nextInt());
                 
                 ps.print("Pos X: ");
@@ -210,35 +210,46 @@ public class CommandParser
             }
             else if(subCmd.equals("player"))
             {
-                // Update a test entity
-                Player t = new Player(dbx);
-                
+                // Get ID
+                long id;
                 ps.print("ID: ");
-                t.setId(sc.nextLong());
-                
-               ps.print("Name:" );
-                t.setName(sc.next());
-                
-                ps.print("Health: ");
-                t.setHealth(sc.nextInt());
-                
-                ps.print("Skill Level: ");
-                t.setSkillLevel(sc.nextInt());
+                id = sc.nextLong();
+ 
+                // If admin or editing players id
+                if(Global.is_admin_authn ||
+                   (Global.is_player_authn && id == Global.authn_player_id))
+                {
+                    // Update a test entity
+                    Player t = new Player(dbx);
+                    
+                    ps.print("Name:" );
+                    t.setName(sc.next());
+                    
+                    ps.print("Health: ");
+                    t.setHealth(sc.nextInt());
+                    
+                    ps.print("Skill Level: ");
+                    t.setSkillLevel(sc.nextInt());
 
-                ps.print("Birth Date");
-                t.setBirthDate(sc.nextInt());
-                
-                ps.print("Pos X: ");
-                t.setPosX(sc.nextInt());
-                
-                ps.print("Pos Y: ");
-                t.setPosY(sc.nextInt());
-                
-                ps.print("Region ID: ");
-                t.setRegionID(sc.nextInt());
-                
-                t.db_create(); // Create the object on the database.
-                ps.println("OUTPUT UPDATE player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+                    ps.print("Birth Date");
+                    t.setBirthDate(sc.nextInt());
+                    
+                    ps.print("Pos X: ");
+                    t.setPosX(sc.nextInt());
+                    
+                    ps.print("Pos Y: ");
+                    t.setPosY(sc.nextInt());
+                    
+                    ps.print("Region ID: ");
+                    t.setRegionID(sc.nextInt());
+                    
+                    t.db_create(); // Create the object on the database.
+                    ps.println("OUTPUT UPDATE player " + t.getId() + " " + t.getName() + " " + t.getHealth() + " " + t.getSkillLevel() + " " + t.getBirthDate() + " " + t.getPosX() + " " + t.getPosY() + " " + t.getRegionID());
+                }
+                else
+                {
+                    ps.println("OUTPUT UPDATE player FAILED: incorrect id or not logged in or other problem");
+                }
             }
         }
         else if(cmd.equals("DELETE"))
@@ -260,17 +271,23 @@ public class CommandParser
 
             else if(subCmd.equals("player"))
             {
-                // Delete a test entity
-                //Test t = new Test(dbx);
+                // Get ID
                 long id;
+                ps.print("ID: ");
                 id = sc.nextLong();
-                
+ 
+                // If admin or editing players id
                 if(Global.is_admin_authn ||
                    (Global.is_player_authn && id == Global.authn_player_id))
                 {
-                    //t.setId(id);
-                    //t.db_delete(); // Perform the database deletion operation.
-                    ps.println("OUTPUT DELETE player " + id);
+                    // Delete a test entity
+                    Player t = new Player(dbx);
+
+                    // Set ID
+                    t.setId(id);
+                    
+                    t.db_delete(); // Perform the database deletion operation.
+                    ps.println("OUTPUT DELETE npc " + t.getId());
                 }
                 else
                 {

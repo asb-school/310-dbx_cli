@@ -53,12 +53,12 @@ public class Main
             // Who logged in?
             if(Global.is_player_authn)
             {
-                System.out.println("Player " + Global.authn_player_id + " is logged in");
+                System.out.println("Player id: " + Global.authn_player_id + " is logged in");
             }
 
             if(Global.is_admin_authn)
             {
-                System.out.println("Admin " + Global.authn_player_id + " is logged in");
+                System.out.println("Admin id: " + Global.authn_player_id + " is logged in");
             }
 
             // Process commands

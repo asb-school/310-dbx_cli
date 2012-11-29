@@ -210,7 +210,7 @@ public class Player implements DBObj
         ResultSet rs; // Result set for entity read
 
         // SQL query
-        sqlStr = "SELECT name, health, skill_level, birth_date, pos_x, pos_y, region_id FROM player WHERE id = ?";
+        sqlStr = "SELECT id, name, health, skill_level, birth_date, pos_x, pos_y, region_id FROM player WHERE id = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = dbx.getConnection().prepareStatement(sqlStr);

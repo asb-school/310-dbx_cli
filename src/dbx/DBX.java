@@ -177,16 +177,14 @@ public class DBX
      * @param encryptedPassword Encrypted password
      * @return True if the user name and password are valid, false otherwise.
      */
-    public boolean authenticateUser(String username, String encryptedPassword) throws Exception
+    public void authenticateUser(String username, String encryptedPassword) throws Exception
     {
-        boolean isAuthenticated = false;
-
         String sqlStr; // SQL query text
         PreparedStatement pstmt; // SQL statement object
         ResultSet rs; // Results returned from the query
 
         // SQL query
-        sqlStr = "SELECT password, id, admin FROM users WHERE username = ?";
+        sqlStr = "SELECT users.password, player.id, users.admin FROM users, player WHERE player.id = users.player_id AND users.username = ?";
 
         // Create the SQL statement object and prepare the statement
         pstmt = conn.prepareStatement(sqlStr);
@@ -217,8 +215,9 @@ public class DBX
 
         if(encryptedPassword.equals(p))
         {
-            isAuthenticated = true;
-            
+            // Player is authenticated
+            Global.is_player_authn = true;
+          
             // Set globals
             Global.authn_player_id = player_id;
             
@@ -232,7 +231,6 @@ public class DBX
         rs.close();
         pstmt.close();
         conn.commit();
-        return isAuthenticated;
     }
 
     /**
