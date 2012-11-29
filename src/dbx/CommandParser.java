@@ -345,29 +345,6 @@ public class CommandParser
                 }
             }
         }
-        else if(cmd.equals("READ_ALL_GLOBAL"))
-        {
-            // Read all objects from the database into a collection.
-            Collection<DBObj> tc = new LinkedList<DBObj>();
-
-            // Populate the vector using the database object iterator.
-            {
-                Test t = new Test(dbx);
-
-                t.db_iter_begin();
-                while(t.db_iter_next())
-                {
-                    tc.add(new Test(t));
-                }
-                t.db_iter_end();
-            }
-
-            for(DBObj t: tc)
-            {
-                ps.println("OUTPUT READ_ALL_GLOBAL item");
-                //ps.println("OUTPUT READ_ALL_GLOBAL " + t.getId() + " " + t.getName() + " " + t.getVal());
-            }
-        }
         else if(cmd.equals("WORLD_DISPLAY"))
         {
             // Generates an SVG document with all the world contents
